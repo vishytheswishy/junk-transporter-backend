@@ -8,7 +8,9 @@ def hello():
    templateData = {
       'title' : 'HELLO!',
       'time': timeString
-      }
+   } 
+   # pass in as json dictionary
    return render_template('index.html', **templateData)
+   
 if __name__ == "__main__":
    app.run(host='0.0.0.0', port=80, debug=True)
