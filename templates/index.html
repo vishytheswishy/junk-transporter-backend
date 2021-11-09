@@ -1,21 +1,67 @@
+ <!-- <span>&#10060;</span> this is the x mark--> 
+ <!-- <span>&#9989;</span> this is the check mark -->
 <!DOCTYPE html>
-   <head>
-      <title>The Junk Transporter</title>
-      <link rel="stylesheet" href='../static/style.css'/>
-   </head>
+<html>
+<head>
+   <title>The Junk Transporter</title>
+   <link rel="stylesheet" href='../static/style.css'/>
+</head>
    <body>
-	  <h1 style="text-align:center">The Junk Transporter</h1>
-      <h2 style="text-align:center", id = "currentState">Current State:  Stopped</h1>
-      <h2 style="text-align:center", id = "objDetection">Object detected: Yes </h2>
-      <div class="text-center"> 
-          <button type="button">Connect!</button>
-           <button type="button">Start!</button>  
-    </div>
-      <h2 style="text-align:center", id= "connection" color = "green">Is Connected: 
-          <span>&#10060;</span> </h2>
 
-    
-          <!-- <span>&#10060;</span> this is the x mark--> 
-          <!-- <span>&#9989;</span> this is the check mark -->
-   </body>
+	  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#start").click(function(){
+    $.post("/start_junk_transporter",
+    {
+      name: "client",
+      time: "now"
+    },  );
+  });
+});
+$(document).ready(function(){
+     $("#stop").click(function(){
+       $.post("/stop_junk_transporter",
+       {
+         name: "client",
+         time: "now"
+       },  );
+     });
+   });
+$(document).ready(function(){
+     $("#open").click(function(){
+       $.post("/open_junk_transporter",
+       {
+         name: "client",
+         time: "now"
+       },  );
+     });
+   });
+$(document).ready(function(){
+     $("#close").click(function(){
+       $.post("/close_junk_transporter",
+       {
+         name: "client",
+         time: "now"
+       },  );
+     });
+   });
+
+</script>
+</head>
+<body>
+   <h1 style="text-align:center">The Junk Transporter</h1>
+   <h2 style="text-align:center", id = "currentState">Current State:  Stopped</h1>
+   <h2 style="text-align:center", id = "objDetection">Object detected: Yes </h2>
+   <div class="text-center"> 
+       <button id = "start"> Start!</button>  
+       <button id = "stop"> Stop!</button>
+       <button id = "open"> Open!</button>
+       <button id = "close"> Close!</button>
+ </div>
+   <h2 style="text-align:center", id= "connection" color = "green">Is Connected: 
+       <span>&#10060;</span> </h2>
+</body>
+
 </html>
