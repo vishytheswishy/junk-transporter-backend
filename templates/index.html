@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="shortcut icon" type = "image/png" href="/image/favicon.png" />
    <title>The Junk Transporter</title>
    <link rel="stylesheet" href='../static/style.css'/>
 </head>
@@ -12,7 +13,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
+  
   $("#start").click(function(){
+
+    $("#currentState").html("Current State: Moving")
     $.post("/start_junk_transporter",
     {
       name: "client",
@@ -21,7 +25,9 @@ $(document).ready(function(){
   });
 });
 $(document).ready(function(){
+    
      $("#stop").click(function(){
+      $("#currentState").text("Current State: Stopped")
        $.post("/stop_junk_transporter",
        {
          name: "client",
@@ -30,7 +36,9 @@ $(document).ready(function(){
      });
    });
 $(document).ready(function(){
+     
      $("#open").click(function(){
+    $('#trashDetection').html("Lid Open: Yes")
        $.post("/open_junk_transporter",
        {
          name: "client",
@@ -39,7 +47,9 @@ $(document).ready(function(){
      });
    });
 $(document).ready(function(){
+     
      $("#close").click(function(){
+      $('#trashDetection').html("Lid Open: No")
        $.post("/close_junk_transporter",
        {
          name: "client",
@@ -53,15 +63,19 @@ $(document).ready(function(){
 <body>
    <h1 style="text-align:center">The Junk Transporter</h1>
    <h2 style="text-align:center", id = "currentState">Current State:  Stopped</h1>
-   <h2 style="text-align:center", id = "objDetection">Object detected: Yes </h2>
+   <h2 style="text-align:center", id = "trashDetection">Lid Open: No </h2>
+   <h3 style="text-align:center", id = "trashStatus">Can Full: No </h3>
+   <h4 style="text-align:center", id = "trashStatus">Position (0, 0) </h4>
    <div class="text-center"> 
        <button id = "start"> Start!</button>  
        <button id = "stop"> Stop!</button>
        <button id = "open"> Open!</button>
        <button id = "close"> Close!</button>
+       <button id = "backToStart">Back to Start</button>
  </div>
    <h2 style="text-align:center", id= "connection" color = "green">Is Connected: 
        <span>&#10060;</span> </h2>
+
 </body>
 
 </html>

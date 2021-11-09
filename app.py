@@ -8,8 +8,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 button = 20
 senPIR = 16
-buttonSts = GPIO.LOW
-senPIRSts = GPIO.LOW
+# buttonSts = GPIO.LOW
+# senPIRSts = GPIO.LOW
 
 # Set button and PIR sensor pins as an input
 GPIO.setup(button, GPIO.IN)   

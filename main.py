@@ -8,6 +8,7 @@ class JunkTransporter:
       self.position = [0,0]
       self.battery = 100
       self.isOpen = True
+      
    def move(self):
       pass
    def changeDirection(self):
