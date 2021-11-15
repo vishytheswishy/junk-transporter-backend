@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, url_for, redirect
 import datetime
+from time import sleep
+import RPi.GPIO as GPIO
+
 
 
 class JunkTransporter:
@@ -18,18 +21,17 @@ class JunkTransporter:
       pass
    
    def openTrash(self):
-      pass
-   
-   def closeTrash(self):
-      pass
-
-   def getCurrentWeight(self):
-      return self.weight
-   
-   def updateWeight(self, modifier):
-      self.weight = self.weight - modifier
-      return self.weight
-      
+      GPIO.setmode(GPIO.BCM)
+      GPIO.setup(25, GPIO.OUT)
+      pwm = GPIO.PWM(25, 50)
+      pwm.start(5)
+      pwm.ChangeDutyCycle(5)
+      sleep(3)
+      pwm.ChangeDutyCycle(7.5)
+      sleep(1)
+      pwm.ChangeDutyCycle(50)
+      pwm.stop()
+      GPIO.cleanup()
 
 class Response:
    def __init__(self):
@@ -72,12 +74,8 @@ def stopRobot():
 @app.route('/open_junk_transporter', methods=['GET', 'POST'])
 def openRobot():
    print("Opening the Junk Transporter!")
+   junkTransporter.openTrash()
    return "Opening junk transporter"
-
-@app.route('/close_junk_transporter', methods=['GET', 'POST'])
-def closeRobot():
-   print("Closing the Junk Transporter!")
-   return "Closing junk transporter"
 
 def start():
    pass

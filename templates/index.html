@@ -46,18 +46,6 @@ $(document).ready(function(){
        },  );
      });
    });
-$(document).ready(function(){
-     
-     $("#close").click(function(){
-      $('#trashDetection').html("Lid Open: No")
-       $.post("/close_junk_transporter",
-       {
-         name: "client",
-         time: "now"
-       },  );
-     });
-   });
-
 </script>
 </head>
 <body>
@@ -70,7 +58,6 @@ $(document).ready(function(){
        <button id = "start"> Start!</button>  
        <button id = "stop"> Stop!</button>
        <button id = "open"> Open!</button>
-       <button id = "close"> Close!</button>
        <button id = "backToStart">Back to Start</button>
  </div>
    <h2 style="text-align:center", id= "connection" color = "green">Is Connected: 
