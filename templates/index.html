@@ -36,15 +36,15 @@ $(document).ready(function(){
      });
    });
 $(document).ready(function(){
-     
      $("#open").click(function(){
-    $('#trashDetection').html("Lid Open: Yes")
+      $('#trashDetection').html("Lid Open: Yes")
        $.post("/open_junk_transporter",
        {
          name: "client",
          time: "now"
        },  );
-     });
+     
+      });
    });
 </script>
 </head>
@@ -61,7 +61,7 @@ $(document).ready(function(){
        <button id = "backToStart">Back to Start</button>
  </div>
    <h2 style="text-align:center", id= "connection" color = "green">Is Connected: 
-       <span>&#10060;</span> </h2>
+    <span>&#10003;</span> </h2>
 
 </body>
 

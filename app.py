@@ -14,6 +14,15 @@ GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
 GPIO.setup(GPIO_ECHO, GPIO.IN)
  
 def distance():
+    GPIO.setmode(GPIO.BCM)
+ 
+    #set GPIO Pins
+    GPIO_TRIGGER = 18
+    GPIO_ECHO = 24
+ 
+#set GPIO direction (IN / OUT)
+    GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
+    GPIO.setup(GPIO_ECHO, GPIO.IN)
     # set Trigger to HIGH
     GPIO.output(GPIO_TRIGGER, True)
  
@@ -37,7 +46,7 @@ def distance():
     # multiply with the sonic speed (34300 cm/s)
     # and divide by 2, because there and back
     distance = (TimeElapsed * 34300) / 2
- 
+    GPIO.cleanup()
     return distance
  
 if __name__ == '__main__':
