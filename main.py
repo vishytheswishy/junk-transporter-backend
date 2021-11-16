@@ -6,13 +6,13 @@ import RPi.GPIO as GPIO
 
 GPIO.setwarnings(False)
 
-r_in1 = 27
-r_in2 = 22
-r_en = 4
+r_in1 = 5
+r_in2 = 6
+r_en = 13
 
-l_in1 = 5
-l_in2 = 6
-l_en = 13
+l_in1 = 4
+l_in2 = 22
+l_en = 27
 
 class JunkTransporter:
    def __init__(self):
@@ -33,6 +33,45 @@ class JunkTransporter:
       pwm.ChangeDutyCycle(50)
       pwm.stop()
       GPIO.cleanup()
+
+   def move(self):
+      l_in1 = 27
+      l_in2 = 22
+      l_en = 4
+
+      r_in1 = 5
+      r_in2 = 6
+      r_en = 13
+
+      GPIO.setmode(GPIO.BCM)
+      GPIO.setup(l_in1,GPIO.OUT)
+      GPIO.setup(l_in2,GPIO.OUT)
+      GPIO.setup(l_en,GPIO.OUT)
+
+      GPIO.setup(r_in1,GPIO.OUT)
+      GPIO.setup(r_in2,GPIO.OUT)
+      GPIO.setup(r_en,GPIO.OUT)
+
+      GPIO.output(l_in1,GPIO.LOW)
+      GPIO.output(l_in2,GPIO.LOW)
+      p=GPIO.PWM(l_en,50)
+      q=GPIO.PWM(r_en,50)
+
+      p.ChangeDutyCycle(100)
+      q.ChangeDutyCycle(100)
+      p.start(100)
+      q.start(100)
+
+      GPIO.output(r_in1,GPIO.HIGH)
+      GPIO.output(r_in2,GPIO.LOW)
+
+      GPIO.output(l_in1,GPIO.HIGH)
+      GPIO.output(l_in2,GPIO.LOW)
+      sleep(.01)
+
+   def stop():
+      pass
+
 
 class Response:
    def __init__(self):
@@ -98,25 +137,21 @@ def index():
 
 @app.route('/start_junk_transporter', methods=['GET', 'POST'])
 def startRobot():
-   
+   start = time.time()
    print("Starting the Junk Transporter!")
-   counter = 0
    while(True):
-      if counter == 10:
-         break
-      distance = obstacleSensor.distance()
-      print(distance)
-      if (distance <= 10):
+      if obstacleSensor.distance() > 10:
+         print(obstacleSensor.distance())
+         junkTransporter.move()
+      else:
          junkTransporter.openTrash()
-      counter = counter + 1
-      sleep(1)
+         sleep(2)
    #set GPIO Pins
       
    return "Starting junk transporter"
 
 @app.route('/stop_junk_transporter', methods=['GET', 'POST'])
 def stopRobot():
-   GPIO.cleanup()
    print("Stopping the Junk Transporter!")
    return "Stopping junk transporter"
 
@@ -131,7 +166,3 @@ def start():
 
 if __name__ == "__main__":
    app.run(host='0.0.0.0', port=80, debug=True)
-
-
-
-
